@@ -1,5 +1,6 @@
 import { styled } from 'styled-components';
 import { useCallback, useEffect } from 'react';
+import { AiOutlineSearch } from 'react-icons/ai';
 import getData from '../api/axios';
 
 const Search = ({ setData, setIsFocus, input, setInput, setFocusIdx, data, focusIdx }) => {
@@ -71,7 +72,7 @@ const Search = ({ setData, setIsFocus, input, setInput, setFocusIdx, data, focus
         onFocus={handleFocus}
         onKeyDown={changeIdxNum}
       />
-      <button>검색</button>
+      <AiOutlineSearch className="icon" />
     </SearchContainer>
   );
 };
@@ -80,20 +81,27 @@ export default Search;
 
 const SearchContainer = styled.form`
   display: flex;
+  background-color: white;
   justify-content: space-between;
   align-items: center;
+  border-radius: 42px;
   width: 35%;
+  margin-top: 20px;
   input {
     flex: 1;
     border: none;
     padding-left: 10px;
+    border-radius: 42px;
     height: 50px;
-    border-radius: 10px;
+    &:focus {
+      outline: none;
+    }
   }
-  button {
-    border: none;
-    background-color: deepskyblue;
+  .icon {
+    font-size: 2rem;
+    color: white;
+    background-color: #007be9;
     border-radius: 50%;
-    height: 70%;
+    margin-right: 10px;
   }
 `;

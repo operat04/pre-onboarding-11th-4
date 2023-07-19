@@ -31,7 +31,7 @@ export default Result;
 const ListContainer = styled.div`
   background-color: white;
   position: absolute;
-  top: 210px;
+  top: 255px;
   width: 35%;
   border-radius: 10px;
   border: 1px solid skyblue;
