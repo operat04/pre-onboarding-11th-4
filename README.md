@@ -3,7 +3,7 @@
 ## Get start client
 
 ```
-$ git clone https://github.com/kjungit/pre-onboarding-11th-searchBar.git
+$ git clone git@github.com:operat04/pre-onboarding-11th-4.git
 $ npm install
 $ npm start
 ```
