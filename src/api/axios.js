@@ -1,7 +1,11 @@
 import axios from 'axios';
 
-export const getData = params => {
-  const response = axios.get(`http://localhost:4000/sick?q=${params}`);
-
-  return response;
+const getData = params => {
+  if (params.length !== 0) {
+    const response = axios.get(`http://localhost:4000/sick?q=${params}`);
+    return response;
+  }
+  return [];
 };
+
+export default getData;

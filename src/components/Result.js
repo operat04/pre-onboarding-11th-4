@@ -1,5 +1,33 @@
 import { styled } from 'styled-components';
 
+const Result = ({ data, setInput, input, focusIdx }) => {
+  if (data.length === 0 || input.length === 0)
+    return (
+      <ListContainer>
+        <span>검색결과없음</span>
+      </ListContainer>
+    );
+  return (
+    <ListContainer>
+      <ul>
+        {data.map((el, idx) => (
+          // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
+          <li
+            role="list"
+            key={el.sickCd}
+            onClick={() => setInput(el.sickNm)}
+            onKeyDown={() => {}}
+            className={idx === focusIdx ? 'focus' : ''}>
+            {el.sickNm}
+          </li>
+        ))}
+      </ul>
+    </ListContainer>
+  );
+};
+
+export default Result;
+
 const ListContainer = styled.div`
   background-color: white;
   position: absolute;
@@ -10,8 +38,12 @@ const ListContainer = styled.div`
   ul {
     margin: 10px 0;
     padding: 0 0 0 10px;
+    .focus {
+      background-color: gray;
+    }
     li {
       margin: 5px;
+      cursor: pointer;
     }
   }
   span {
@@ -19,24 +51,3 @@ const ListContainer = styled.div`
     padding: 0 0 0 10px;
   }
 `;
-
-const Result = ({ data }) => {
-  const sliceData = data.slice(0, 20);
-  if (data.length === 0)
-    return (
-      <ListContainer>
-        <span>검색결과없음</span>
-      </ListContainer>
-    );
-  return (
-    <ListContainer>
-      <ul>
-        {sliceData.map(el => (
-          <li key={el.sickCd}>{el.sickNm}</li>
-        ))}
-      </ul>
-    </ListContainer>
-  );
-};
-
-export default Result;

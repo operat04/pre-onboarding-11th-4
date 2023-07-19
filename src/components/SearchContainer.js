@@ -1,7 +1,7 @@
 import { useState } from 'react';
+import { styled } from 'styled-components';
 import Result from './Result';
 import Search from './Search';
-import { styled } from 'styled-components';
 
 const SSearchContainer = styled.div`
   display: flex;
@@ -15,13 +15,23 @@ const SSearchContainer = styled.div`
 `;
 
 const SearchContainer = () => {
+  const [focusIdx, setFocusIdx] = useState(-1);
   const [data, setData] = useState([]);
   const [isFocus, setIsFocus] = useState(false);
   const [input, setInput] = useState('');
+  const sliceData = data.slice(0, 10);
   return (
     <SSearchContainer>
-      <Search setData={setData} setIsFocus={setIsFocus} setInput={setInput} input={input} />
-      {isFocus && <Result data={data} />}
+      <Search
+        setData={setData}
+        setIsFocus={setIsFocus}
+        setInput={setInput}
+        input={input}
+        data={sliceData}
+        setFocusIdx={setFocusIdx}
+        focusIdx={focusIdx}
+      />
+      {isFocus && <Result data={sliceData} setInput={setInput} input={input} focusIdx={focusIdx} />}
     </SSearchContainer>
   );
 };
