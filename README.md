@@ -2,21 +2,21 @@
 
 ## Get start client
 
-git clone git@github.com:operat04/pre-onboarding-11th-4.git
-npm install
-npm start
+- git clone git@github.com:operat04/pre-onboarding-11th-4.git
+- npm install
+- npm start
 
 ## Get start server
 
-git clone git@github.com:walking-sunset/assignment-api.git
-npm install
-npm start
+- git clone git@github.com:walking-sunset/assignment-api.git
+- npm install
+- npm start
 
 ## 개발 환경
 
-개발언어 : Javascript
-스타일 : styled-components
-HTTP Client: axios
+- 개발언어 : Javascript
+- 스타일 : styled-components
+- HTTP Client: axios
 
 ### 질환명 검색시 API 호출 통해서 검색어 추천 기능 구현
 
