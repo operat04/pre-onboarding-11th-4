@@ -1,9 +1,22 @@
 import { styled } from 'styled-components';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import getData from '../api/axios';
 
 const Search = ({ setData, setIsFocus, input, setInput, setFocusIdx, data, focusIdx }) => {
-  const GetListData = () => {
+  // 디바운싱
+  const DebounceInput = (callback, delay) => {
+    let timer;
+    return (...args) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => callback(...args), delay);
+    };
+  };
+  const Debounce = useCallback(
+    DebounceInput(value => GetListData(value), 500),
+    [],
+  );
+  // 데이터 호출
+  const GetListData = input => {
     if (localStorage.getItem(input)) {
       if (JSON.parse(localStorage.getItem(input)).expiration < new Date().getTime()) {
         localStorage.removeItem(input);
@@ -18,6 +31,7 @@ const Search = ({ setData, setIsFocus, input, setInput, setFocusIdx, data, focus
         localStorage.setItem(input, JSON.stringify({ data: res.data, expiration: new Date().getTime() + 10000 }));
       });
   };
+  // 검색어 키보드 작동
   const changeIdxNum = e => {
     if (e.key === 'ArrowDown') {
       setFocusIdx(prev => (prev + 1) % data.length);
@@ -40,19 +54,19 @@ const Search = ({ setData, setIsFocus, input, setInput, setFocusIdx, data, focus
   const handleFocus = () => {
     setIsFocus(true);
   };
-  const handleData = e => {
+  const handleInput = e => {
     setInput(e.target.value);
   };
   useEffect(() => {
     if (!input) return;
-    GetListData();
+    Debounce(input);
     setFocusIdx(-1);
   }, [input, setFocusIdx]);
   return (
     <SearchContainer>
       <input
         value={input}
-        onChange={handleData}
+        onChange={handleInput}
         placeholder="질환명을 입력해주세요."
         onFocus={handleFocus}
         onKeyDown={changeIdxNum}
