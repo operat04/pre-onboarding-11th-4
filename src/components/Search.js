@@ -3,6 +3,21 @@ import { useEffect } from 'react';
 import getData from '../api/axios';
 
 const Search = ({ setData, setIsFocus, input, setInput, setFocusIdx, data, focusIdx }) => {
+  const GetListData = () => {
+    if (localStorage.getItem(input)) {
+      if (JSON.parse(localStorage.getItem(input)).expiration < new Date().getTime()) {
+        localStorage.removeItem(input);
+      } else {
+        setData(JSON.parse(localStorage.getItem(input)).data);
+      }
+    }
+    if (!localStorage.getItem(input))
+      getData(input).then(res => {
+        console.log('calling api');
+        setData(res.data);
+        localStorage.setItem(input, JSON.stringify({ data: res.data, expiration: new Date().getTime() + 10000 }));
+      });
+  };
   const changeIdxNum = e => {
     if (e.key === 'ArrowDown') {
       setFocusIdx(prev => (prev + 1) % data.length);
@@ -28,18 +43,11 @@ const Search = ({ setData, setIsFocus, input, setInput, setFocusIdx, data, focus
   const handleData = e => {
     setInput(e.target.value);
   };
-
   useEffect(() => {
     if (!input) return;
-    if (localStorage.getItem(input)) setData(JSON.parse(localStorage.getItem(input)));
-    if (!localStorage.getItem(input))
-      getData(input).then(res => {
-        console.log('서버 통신');
-        localStorage.setItem(input, JSON.stringify(res.data));
-        setData(res.data);
-      });
+    GetListData();
     setFocusIdx(-1);
-  }, [input, setData, setFocusIdx]);
+  }, [input, setFocusIdx]);
   return (
     <SearchContainer>
       <input
