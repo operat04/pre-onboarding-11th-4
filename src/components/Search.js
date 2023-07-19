@@ -10,10 +10,13 @@ const Search = ({ setData, setIsFocus, input, setInput }) => {
     setInput(e.target.value);
   };
   useEffect(() => {
-    getData(input).then(res => {
-      console.log('서버 통신');
-      setData(res.data);
-    });
+    if (localStorage.getItem(input)) setData(JSON.parse(localStorage.getItem(input)));
+    if (!localStorage.getItem(input))
+      getData(input).then(res => {
+        console.log('서버 통신');
+        localStorage.setItem(input, JSON.stringify(res.data));
+        setData(res.data);
+      });
   }, [input, setData]);
   return (
     <SearchContainer>
