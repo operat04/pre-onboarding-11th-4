@@ -1,70 +1,36 @@
-# Getting Started with Create React App
+# 원티드 프리 온보딩 인터쉽 과제
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Get start client
 
-## Available Scripts
+git clone git@github.com:operat04/pre-onboarding-11th-4.git
+npm install
+npm start
 
-In the project directory, you can run:
+## Get start server
 
-### `npm start`
+git clone git@github.com:walking-sunset/assignment-api.git
+npm install
+npm start
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 개발 환경
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+개발언어 : Javascript
+스타일 : styled-components
+HTTP Client: axios
 
-### `npm test`
+### 질환명 검색시 API 호출 통해서 검색어 추천 기능 구현
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### API를 호출할 때 마다 console.info("calling api") 출력
 
-### `npm run build`
+### API 호출별로 로컬 캐싱 구현
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+API 호출 시 localStorage에 검색어와 호출된 데이터 , expiration(현재 설정은 10초)을 함께 저장
+다음 Input 변경 시에는 localStorage를 먼저 탐색 후 있을 경우 expiration 확인 expiration이 지났으면 데이터 삭제 후 다시 API 통신 후 갱신
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 입력마다 API 호출하지 않도록 API 호출 횟수를 줄이는 전략 수립 및 실행
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+디바운싱 기법을 이용해 Debounce 함수를 만들어 input 입력 후 0.5초 뒤에 데이터 호출 함수가 작동되도록 하여 , input이 바뀔 땐 API호출을 줄임.
 
-### `npm run eject`
+### 키보드만으로 추천 검색어들로 이동 가능하도록 구현
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+focusIdx State를 만들어 input창에서 OnkeyDown이 작동할 때 focusIdx를 관리하여 데이터의 index와 비교 후 해당 요소를 선택할 수 있도록 함.
